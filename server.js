@@ -1,12 +1,21 @@
 import express from 'express';
 import dotenv from 'dotenv';
-const app = express()
+import morgan from 'morgan';
+import connectDb from './config/db.js';
 
 //configure env
 dotenv.config();
+//database config
+connectDb();
+const app = express()
+
+//middleware
+app.use(express.json());
+app.use(morgan('dev'));
+
 //rest API
 app.get('/', (req, res) => {
-    res.send("<h1>Welcome to ecommerce MERN </h1>" );
+    res.send("<h1>Welcome to ecommerce MERN </h1>");
 });
 
 //port
