@@ -1,11 +1,13 @@
+
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import connectDb from './config/db.js';
-import authRoutes from './routes/authRoute.js'
+import connectDb from './backend/config/db.js';
+import authRoutes from './backend/routes/authRoute.js'
 
-//configure env
+//configure env like this. if server.js and .env together in RootDirectory.
 dotenv.config();
+
 //database config
 connectDb();
 const app = express()
