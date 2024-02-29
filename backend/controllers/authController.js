@@ -35,7 +35,7 @@ export const registerController = async (req, res) => {
             email,
             phone,
             address,
-            password:hashedPassword,
+            password: hashedPassword,
         }).save();
 
         res.status(201).send({
@@ -105,3 +105,8 @@ export const loginController = async (req, res) => {
         })
     }
 };
+
+//test
+export const testController = (req, res) => {
+res.send('protected route');
+}
