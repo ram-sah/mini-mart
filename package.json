@@ -5,8 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node api/server.js",
-    "server": "nodemon api/server.js"
+    "start": "nodemon api/server.js"
   },
   "keywords": [],
   "author": "Ram",

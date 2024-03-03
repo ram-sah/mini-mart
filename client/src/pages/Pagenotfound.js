@@ -1,12 +1,21 @@
-import React from 'react'
-import Layout from '../components/Layout/Layout'
+import React from "react";
+import { Link } from "react-router-dom";
+import Layout from "../components/Layout/Layout";
 
 const Pagenotfound = () => {
   return (
-    <Layout>
-<h1>page not found</h1>
+    <Layout title={"page not found- go back"}>
+      <div className="pnf">
+        <h1 className="pnf-title">404</h1>
+        <h2 className="pnf-heading">Oops ! Page Not Found</h2>
+        <Link to="/" className="pnf-btn rounded">
+          Go Back
+        </Link>
+      </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Pagenotfound
+export default Pagenotfound;
+
+//title props destructed for SEO
