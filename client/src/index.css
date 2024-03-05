@@ -50,6 +50,14 @@
   color: white;
 }
 
+/* logo */
+.app {
+  margin-right: -4px;
+}
+.head {
+  font-family: "Sixtyfour", sans-serif;
+}
+
 /*==footer==*/
 
 .footer a {
@@ -62,14 +70,6 @@
 .footer a:hover {
   color: #ffefba;
   border-bottom: 1px solid #f7f3e9;
-}
-
-/* logo */
-.app {
-  margin-right: -4px;
-}
-.head {
-  font-family: "Sixtyfour", sans-serif;
 }
 
 /* ======= page not found css ======= */
@@ -100,4 +100,14 @@
 .pnf-btn:hover {
   background-color: black;
   color: white;
+}
+
+/* Register page */
+.register{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 70vh;
 }

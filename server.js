@@ -3,7 +3,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import connectDb from './backend/config/db.js';
-import authRoutes from './backend/routes/authRoute.js'
+import authRoutes from './backend/routes/authRoute.js';
+import cors from 'cors'
 
 //configure env like this. if server.js and .env together in RootDirectory.
 dotenv.config();
@@ -13,6 +14,7 @@ connectDb();
 const app = express()
 
 //middleware
+app.use(cors())
 app.use(express.json());
 app.use(morgan('dev'));
 

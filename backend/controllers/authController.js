@@ -16,13 +16,13 @@ export const registerController = async (req, res) => {
             email === "" ||
             password === ""
         ) {
-            return res.send({ error: "Enter valid data in all fields" });
+            return res.send({ message: "Enter valid data in each fields" });
         }
-        //check user
+        //check existing user
         const existingUser = await userModel.findOne({ email });
         if (existingUser) {
             return res.status(200).send({
-                success: true,
+                success: false,
                 message: "Already Register login now",
             });
         }

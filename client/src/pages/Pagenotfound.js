@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 
-const Pagenotfound = () => {
+const PageNotFound = () => {
   return (
     <Layout title={"page not found- go back"}>
       <div className="pnf">
@@ -16,6 +16,6 @@ const Pagenotfound = () => {
   );
 };
 
-export default Pagenotfound;
+export default PageNotFound;
 
 //title props destructed for SEO

@@ -20,7 +20,7 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse " id="navbarTogglerDemo01">
             <Link to="/" className="navbar-brand mx-4">
-              <span class="border border-secondary rounded border-2 p-1">
+              <span className="border border-secondary rounded border-2 p-1">
                 <span className=' bg-white text-black head '>E</span>
                 <span className='text-secondary rounded-end-1 p-1'>com</span>
                 <span className='text-dark'>merce</span>
