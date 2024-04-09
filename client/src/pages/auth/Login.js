@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import Layout from "./../../components/Layout/Layout";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../../context/auth';
 
@@ -9,6 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [auth, setAuth] = useAuth()
+    const location = useLocation()
 
     const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const Login = () => {
                 });
                 // store in localStorage
                 localStorage.setItem('auth', JSON.stringify(res.data))
-                navigate("/");
+                navigate(location.state || "/");
             } else {
                 toast.error(res.data.message);
             }
