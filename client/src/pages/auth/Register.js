@@ -10,6 +10,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
+    const [answer, setAnswer] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,10 +23,11 @@ const Register = () => {
                 password,
                 address,
                 phone,
+                answer
             });
 
             if (res && res.data.success) {
-                toast.success(res.data.message); 
+                toast.success(res.data.message);
                 navigate("/login");
             } else {
                 toast.error(res.data.message);
@@ -95,6 +97,17 @@ const Register = () => {
                             required
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="answer"
+                            placeholder="What is your favorite color? "
+                            required
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
                         />
                     </div>
 

@@ -1,51 +1,42 @@
 import React, { useState } from 'react'
 import axios from "axios";
 import Layout from "./../../components/Layout/Layout";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from 'react-hot-toast';
-import { useAuth } from '../../context/auth';
 
-const Login = () => {
+const ForgotPassword = () => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [auth, setAuth] = useAuth()
-    const location = useLocation()
+    const [newPassword, setNewPassword] = useState("");
+    const [answer, setAnswer] = useState()
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(name,email,phone, address,password)
+        // console.log(name,email,phone, address,forgot-password)
 
         try {
-            const res = await axios.post("/api/v1/auth/login", {
+            const res = await axios.post("/api/v1/auth/forgot-password", {
                 email,
-                password,
+                newPassword,
+                answer,
             });
             if (res && res.data.success) {
                 toast.success(res.data && res.data.message);
-                setAuth({
-                    ...auth,
-                    user: res.data.user,
-                    token: res.data.token,
-                });
-                // store in localStorage
-                localStorage.setItem('auth', JSON.stringify(res.data))
-                navigate(location.state || "/");
+                navigate("/login")
             } else {
                 toast.error(res.data.message);
             }
         } catch (error) {
             console.log(error);
             toast.error("Something went wrong");
-        }
-    };
-    // console.log(process.env.REACT_APP_API)
+        };
 
+    };
     return (
         <Layout title="Login your account ">
             <div className="register">
-                <h2 className="mb-5">Login Form</h2>
+                <h2 className="mb-5">Reset Password From</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <input
@@ -60,26 +51,33 @@ const Login = () => {
                     </div>
                     <div className="mb-3">
                         <input
+                            type="test"
+                            className="form-control"
+                            id="answer"
+                            placeholder="Enter your favorite color"
+                            required
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
                             type="password"
                             className="form-control"
-                            id="password"
-                            placeholder="Enter password"
+                            id="newPassword"
+                            placeholder="Enter New password"
                             required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                         />
                     </div>
 
-                    <button type="button" className="btn btn-primary w-100 " onClick={()=> {navigate('/forgot-password')}}>
-                        Forgot Password
-                    </button>
-                    <button type="submit" className="btn btn-primary w-100 mt-3">
-                        Login
+                    <button type="submit" className="btn btn-primary w-100 " onClick={() => { navigate('/forgot-password') }}>
+                        Update Password
                     </button>
                 </form>
             </div>
         </Layout>
     );
-}
-
-export default Login;
+};
+export default ForgotPassword;

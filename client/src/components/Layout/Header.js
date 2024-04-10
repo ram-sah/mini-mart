@@ -56,6 +56,17 @@ const Header = () => {
                   </li>
                 </>) : (
                   <>
+                    <li className="nav-item dropdown">
+                      <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown link
+                      </a>
+
+                        <NavLink className="dropdown-item" href="#">Action</NavLink>
+                        <a className="dropdown-item" href="#">Another action</a>
+                        <a className="dropdown-item" href="#">Something else here</a>
+
+                    </li>
+
                     <li className="nav-item">
                       <NavLink onClick={handlelogout}
                         to="/login" className="nav-link "> Logout </NavLink>
