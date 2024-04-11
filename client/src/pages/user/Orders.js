@@ -1,17 +1,17 @@
 import React from 'react'
+import UserMenu from '../../components/Layout/UserMenu'
 import Layout from '../../components/Layout/Layout'
-import AdminMenu from '../../components/Layout/AdminMenu'
 
-const Users = () => {
+const Orders = () => {
     return (
-        <Layout title={"Dashboard - Users "}>
+        <Layout title={"Your Order "}>
             <div className='container-fluid m-3 p-3'>
                 <div className='row'>
                     <div className='col-md-3'>
-                        <AdminMenu />
+                        <UserMenu />
                     </div>
                     <div className='col-md-9'>
-                        <h1> All users </h1>
+                        <h1>Your Order </h1>
                     </div>
                 </div>
             </div>
@@ -19,4 +19,4 @@ const Users = () => {
     )
 }
 
-export default Users
+export default Orders
