@@ -5,7 +5,8 @@ import morgan from 'morgan';
 import connectDb from './backend/config/db.js';
 import authRoutes from './backend/routes/authRoute.js';
 import cors from 'cors';
-import categoryRoutes from './backend/routes/categoryRoute.js'
+import categoryRoutes from './backend/routes/categoryRoute.js';
+import productRoutes from "./backend/routes/ProductRoutes.js"
 
 //configure env like this. if server.js and .env together in RootDirectory.
 dotenv.config();
