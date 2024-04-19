@@ -18,16 +18,16 @@ const productSchema = new mongoose.Schema({
         require: true,
     },
     category: {
-        type: mongoose.isObjectId,
-        ref: 'Category',
-        required: true,
+        type: mongoose.ObjectId,
+      ref: "Category",
+      required: true,
     },
     quantity: {
         type: Number,
         required: true,
     },
     photo: {
-        type: Buffer,
+        data: Buffer,
         contentType: String,
     },
     shipping: {
@@ -36,3 +36,5 @@ const productSchema = new mongoose.Schema({
 },
     { timestamps: true }
 );
+
+export default mongoose.model("Products", productSchema);
