@@ -21,7 +21,7 @@ router.post(
     createProductController
 );
 //update product routes
-router.post(
+router.put(
     "/update-product/:pid",
     requireSignIn,
     isAdmin,
@@ -39,6 +39,6 @@ router.get("/get-product/:slug", getSingleProductController);
 router.get("/product-photo/:pid", productPhotoController);
 
 //delete product
-router.delete("/product/:pid", deleteProductController);
+router.delete("/product-delete/:pid", deleteProductController);
 
 export default router;
