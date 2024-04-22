@@ -37,8 +37,8 @@ const CreateCategory = () => {
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get("/api/v1/category/get-category");
-            if (data.success) {
-                setCategories(data.category);
+            if (data?.success) {
+                setCategories(data?.category);
             }
         } catch (error) {
             console.log(error);
@@ -84,7 +84,7 @@ const CreateCategory = () => {
                 toast.error(data.message);
             }
         } catch (error) {
-            toast.error("Somtihing went wrong");
+            toast.error("Something went wrong");
         }
     };
 
