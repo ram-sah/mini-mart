@@ -97,18 +97,18 @@ export const productPhotoController = async (req, res) => {
     try {
         const product = await productModel.findById(req.params.pid).select("photo");
         if (product.photo.data) {
-            res.set('Content-type', product.photo.contentType);
-            return res.status(200).send(product.photo.data)
+            res.set("Content-type", product.photo.contentType);
+            return res.status(200).send(product.photo.data);
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).send({
             success: false,
             error: error.message,
             message: "Error while getting product-photo",
         });
     }
-}
+};
 
 //delete product
 export const deleteProductController = async (req, res) => {
@@ -116,18 +116,17 @@ export const deleteProductController = async (req, res) => {
         await productModel.findByIdAndDelete(req.params.pid).select("-photo");
         res.status(200).send({
             success: true,
-            message: "Product Deleted Successfully"
-        })
-
+            message: "Product Deleted Successfully",
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).send({
             success: false,
             error: error.message,
             message: "Error while deleting product",
         });
     }
-}
+};
 
 //update Product
 export const updateProductController = async (req, res) => {
@@ -154,8 +153,11 @@ export const updateProductController = async (req, res) => {
                     .send({ error: "Photo is required less than 1mb" });
         }
 
-        const products = await productModel.findByIdAndUpdate(req.params.pid,
-            { ...req.fields, slug: slugify(name) }, { new: true });
+        const products = await productModel.findByIdAndUpdate(
+            req.params.pid,
+            { ...req.fields, slug: slugify(name) },
+            { new: true }
+        );
         if (photo) {
             products.photo.data = fs.readFileSync(photo.path);
             products.photo.contentType = photo.type;
@@ -174,26 +176,69 @@ export const updateProductController = async (req, res) => {
             message: "Error is updating product",
         });
     }
-}
+};
 
 //product Filters
 export const productFiltersController = async (req, res) => {
     try {
-        const {checked, radio} = req.body;
-        let args = {}
-        if(checked.length > 0) args.category = checked;
-        if(radio.length) args.price = {$gte: radio[0], $lte: radio[1]};
+        const { checked, radio } = req.body;
+        let args = {};
+        if (checked.length > 0) args.category = checked;
+        if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
         const products = await productModel.find(args);
         res.status(200).send({
             success: true,
             products,
         });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(400).send({
             success: false,
             message: "Error while filtering products",
-            error: error.message
-        })
+            error: error.message,
+        });
     }
-}
+};
+
+//Product Count
+export const productCountController = async (req, res) => {
+    try {
+        const total = await productModel.find({}).estimatedDocumentCount();
+        res.status(200).send({
+            success: true,
+            total,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            message: "Error in product count",
+            error,
+            success: false,
+        });
+    }
+};
+
+//Product List
+export const productListController = async (req, res) => {
+    try {
+        const perPage = 8;
+        const page = req.params.page ? req.params.page : 1;
+        const products = await productModel
+            .find({})
+            .select("-photo")
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .sort({ createdAt: -1 });
+            res.status(200).send({
+                success: true,
+                products,
+            })
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            message: "Error to find product list",
+            error,
+            success: false,
+        });
+    }
+};
