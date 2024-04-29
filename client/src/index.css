@@ -48,6 +48,7 @@
   background-color: #000000;
   border-radius: 0;
   color: white;
+  border-radius: 10px;
 }
 
 /* logo */
@@ -115,4 +116,13 @@
 /* product-link  */
 .product-link {
   text-decoration: none !important;
+}
+/* checkbox */
+.custom-checkbox{
+  font-size: 15px;
+}
+/* show similar product  */
+.custom-img-width {
+  width: 150px;
+  justify-content: center;
 }

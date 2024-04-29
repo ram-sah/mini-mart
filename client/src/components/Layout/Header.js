@@ -1,8 +1,11 @@
-import React from 'react'
-import { PiShoppingCartDuotone } from 'react-icons/pi'
-import { Link, NavLink } from 'react-router-dom'
-import { useAuth } from '../../context/auth'
-import toast from 'react-hot-toast'
+import React from 'react';
+import { PiShoppingCartDuotone } from 'react-icons/pi';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuth } from '../../context/auth';
+import toast from 'react-hot-toast';
+import SearchInput from '../Form/SearchInput.js';
+
+
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -39,7 +42,8 @@ const Header = () => {
                 <span className='text-bg-info text-white rounded-end-1 p-1 app' >App</span>
               </span>
             </Link>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 mx-2">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 mx-2 ">
+              <SearchInput />
               <li className="nav-item">
                 <NavLink to="/" className="nav-link "> Home </NavLink>
               </li>
@@ -83,7 +87,6 @@ const Header = () => {
           </div>
         </div>
       </nav>
-
     </>
   )
 }

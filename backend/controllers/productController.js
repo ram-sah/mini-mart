@@ -104,8 +104,8 @@ export const productPhotoController = async (req, res) => {
         console.log(error);
         res.status(500).send({
             success: false,
-            error: error.message,
-            message: "Error while getting product-photo",
+            message: "Error while getting product photo",
+            error,
         });
     }
 };
@@ -229,16 +229,65 @@ export const productListController = async (req, res) => {
             .skip((page - 1) * perPage)
             .limit(perPage)
             .sort({ createdAt: -1 });
-            res.status(200).send({
-                success: true,
-                products,
-            })
+        res.status(200).send({
+            success: true,
+            products,
+        });
     } catch (error) {
         console.log(error);
         res.status(400).send({
             message: "Error to find product list",
             error,
             success: false,
+        });
+    }
+};
+
+//search product
+export const searchProductController = async (req, res) => {
+    try {
+        const { keyword } = req.params;
+        const results = await productModel
+            .find({
+                $or: [
+                    { name: { $regex: keyword, $options: "i" } },
+                    { description: { $regex: keyword, $options: "i" } },
+                ],
+            })
+            .select("-photo");
+        res.json(results);
+    } catch (error) {
+        console.log(error);
+        res(400).send({
+            success: false,
+            message: "Error in product search",
+            error,
+        });
+    }
+};
+
+//Similar product
+export const relatedProductController = async (req, res) => {
+    try {
+        const { pid, cid } = req.params;
+        const products = await productModel
+            .find({
+                category: cid,
+                _id: { $ne: pid },
+            })
+            .select("-photo")
+            .limit(3)
+            .populate("category");
+        res.status(200).send({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "Error while getting related product",
+            error,
         });
     }
 };

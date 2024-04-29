@@ -3,7 +3,7 @@ import Layout from "../components/Layout/Layout";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
-
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +13,7 @@ const HomePage = () => {
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
-
+  const navigate = useNavigate()
   //get all category
   const getAllCategory = async () => {
     try {
@@ -108,13 +108,14 @@ const HomePage = () => {
   return (
     <Layout title={"All products | Best offers"}>
       <div className="row mt-4">
-        <div className="col-md-2">
-          <h4 className="text-center"> Filter by category</h4>
-          <div className="d-flex flex-column ms-4">
+        <div className="col-lg-2">
+          <h4 className="text-start ms-4 "> Filter by category</h4>
+          <div className="d-flex flex-column ms-4 ">
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
                 onChange={(e) => handleFilter(e.target.checked, c._id)}
+                className="custom-checkbox "
               >
                 {c.name}
               </Checkbox>
@@ -122,7 +123,7 @@ const HomePage = () => {
           </div>
 
           {/* price filter */}
-          <h4 className="text-center "> Filter by Price</h4>
+          <h4 className="text-start ms-4 "> Filter by Price</h4>
           <div className="d-flex flex-column ms-4">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
@@ -133,25 +134,27 @@ const HomePage = () => {
             </Radio.Group>
           </div>
 
-          <div className="d-flex flex-column ms-4 mt-4 w-50">
+          <div className="d-flex flex-column ms-4 mt-4">
             <button
               className="btn btn-danger"
+              style={{ width: '8rem' }}
               onClick={() => window.location.reload()}
             >
               Reset Filters
             </button>
           </div>
         </div>
-        <div className="col-md-10">
+        <div className="col-md-10 ">
           {/* {JSON.stringify(radio, null)} */}
-          <h1 className="text-center">All products</h1>
-          <div className="d-flex flex-wrap">
+          <h1 className="text-center mb-5 mt-lg-0 mt-md-0 mt-5">All products</h1>
+          <div className="d-flex flex-wrap flex justify-content-center">
             {products?.map((p) => (
               <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
                 <img
                   src={`/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
+                  height={"180px"}
                 />
                 <div className="card-body">
                   <h5 className="card-title">{p.name}</h5>
@@ -160,7 +163,7 @@ const HomePage = () => {
                   </p>
                   <p className="card-text">$ {p.price}</p>
                   <div className=" text-center">
-                    <button className="btn btn-primary me-4">
+                    <button className="btn btn-primary me-4" onClick={() => navigate(`/product/${p.slug}`)}>
                       More Details
                     </button>
                     <button className="btn btn-secondary ">Add to Cart</button>
