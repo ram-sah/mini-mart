@@ -163,21 +163,21 @@ const HomePage = () => {
                   </p>
                   <p className="card-text">$ {p.price}</p>
                   <div className=" text-center">
-                    <button className="btn btn-primary me-4" onClick={() => navigate(`/product/${p.slug}`)}>
+                    <button className="btn btn-outline-info me-2" onClick={() => navigate(`/product/${p.slug}`)}>
                       More Details
                     </button>
-                    <button className="btn btn-secondary ">Add to Cart</button>
+                    <button className="btn btn-secondary me-2 mt-  mt-sm-0">Add to Cart</button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="p-2 mt-3">
+          <div className="p-2 my-3 d-flex flex-wrap flex justify-content-center">
             {products && products.length < total && (
-              <button className="btn btn-warning" onClick={(e) => {
+              <button className="btn btn-warning " onClick={(e) => {
                 e.preventDefault();
                 setPage(page + 1);
-              }}> {loading ? "loading..." : "Load more"} </button>
+              }}> {loading ? "loading..." : "Load more products"} </button>
             )}
           </div>
         </div>

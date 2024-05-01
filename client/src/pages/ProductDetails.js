@@ -46,7 +46,7 @@ const ProductDetails = () => {
                         height={'300'}
                     />
                 </div>
-                <div className="col-lg-7 ">
+                <div className="col-lg-7 px-0 px-lg-5">
                     <h2 className='text-center mt-lg-0 my-4'>Product Details</h2>
                     <h6>Name: {product.name} </h6>
                     <h6>Description: {product.description} </h6>
