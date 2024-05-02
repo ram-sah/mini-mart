@@ -118,11 +118,54 @@
   text-decoration: none !important;
 }
 /* checkbox */
-.custom-checkbox{
+.custom-checkbox {
   font-size: 15px;
 }
 /* show similar product  */
 .custom-img-width {
   width: 150px;
   justify-content: center;
+}
+
+/* cart */
+
+.bag-item-count {
+  background-color: #f16565;
+  white-space: nowrap;
+  text-align: center;
+  /* line-height: 18px; */
+  padding: 0 6px;
+  /* height: 20px; */
+  position: relative;
+  border-radius: 100%;
+  font-size: 12px;
+  color: #fff;
+  left: 34px;
+  top: -8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.action_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -12px;
+}
+.action_name {
+  margin-top: -25px;
+  margin-left: 60px;
+}
+
+/* nav search button hover*/
+.btn:focus {
+  background-color: black;
+  color: white;
+}
+.btn:hover {
+  background-color: white;
+  color: black;
+}
+.bg-gradient-blue {
+  background: linear-gradient(to top, #a3c6ec, #fff);
 }

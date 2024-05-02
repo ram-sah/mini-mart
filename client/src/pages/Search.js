@@ -2,16 +2,20 @@ import React from 'react';
 import Layout from '../components/Layout/Layout';
 import { useSearch } from "../context/search";
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useCart } from '../context/cart';
 
 const Search = () => {
   const [values, setValues] = useSearch()
   const navigate = useNavigate();
+  const [cart, setCart] = useCart();
+
   return (
     <Layout title={'Search Results'}>
       <div className='container'>
         <div className='text-center'>
           <h1>Search Results</h1>
-          <h6>{values?.results.length < 1 ? "No Products Found" : `Found ${values?.results.length}`} </h6>
+          <h6>{values?.results.length < 1 ? "No Products Found" : `${values?.results.length} similar ${values?.results.length > 1 ? "items" : "item"} found`} </h6>
           <div className="d-flex flex-wrap mt-5">
             {values?.results.map((p) => (
               <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
@@ -31,7 +35,12 @@ const Search = () => {
                     <button className="btn btn-primary me-4 " onClick={() => navigate(`/product/${p.slug}`)}>
                       More Details
                     </button>
-                    <button className="btn btn-secondary ">Add to Cart</button>
+                    <button className="btn btn-secondary "
+                       onClick={() => {
+                        setCart([...cart, p]);
+                        toast.success("Item Added to cart successfully");
+                      }}
+                    >Add to Cart</button>
                   </div>
                 </div>
               </div>

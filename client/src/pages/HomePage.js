@@ -4,16 +4,19 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
-  const [total, setTotal] = useState(0)
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [cart, setCart] = useCart();
   //get all category
   const getAllCategory = async () => {
     try {
@@ -38,7 +41,7 @@ const HomePage = () => {
       setLoading(false);
       setProducts(data.products);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.log(error);
     }
   };
@@ -54,19 +57,19 @@ const HomePage = () => {
   //get total count
   const getTotal = async () => {
     try {
-      const { data } = await axios.get('api/v1/product/product-count');
+      const { data } = await axios.get("api/v1/product/product-count");
       if (data?.success) {
-        setTotal(data?.total)
+        setTotal(data?.total);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   useEffect(() => {
     if (page === 1) return;
     loadMore();
-  }, [page])
+  }, [page]);
 
   //load more
   const loadMore = async () => {
@@ -74,12 +77,12 @@ const HomePage = () => {
       setLoading(true);
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
       setLoading(false);
-      setProducts([...products, ...data?.products])
+      setProducts([...products, ...data?.products]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setLoading(false);
     }
-  }
+  };
 
   //filter by category
   const handleFilter = (value, id) => {
@@ -107,8 +110,8 @@ const HomePage = () => {
 
   return (
     <Layout title={"All products | Best offers"}>
-      <div className="row mt-4">
-        <div className="col-lg-2">
+      <div className="row bg-gradient-blue">
+        <div className="col-lg-2 mt-4">
           <h4 className="text-start ms-4 "> Filter by category</h4>
           <div className="d-flex flex-column ms-4 ">
             {categories?.map((c) => (
@@ -137,16 +140,18 @@ const HomePage = () => {
           <div className="d-flex flex-column ms-4 mt-4">
             <button
               className="btn btn-danger"
-              style={{ width: '8rem' }}
+              style={{ width: "8rem" }}
               onClick={() => window.location.reload()}
             >
               Reset Filters
             </button>
           </div>
         </div>
-        <div className="col-md-10 ">
+        <div className="col-md-10 mt-4">
           {/* {JSON.stringify(radio, null)} */}
-          <h1 className="text-center mb-5 mt-lg-0 mt-md-0 mt-5">All products</h1>
+          <h2 className="text-center mb-5 mt-lg-0 mt-md-0">
+            Keep shopping for
+          </h2>
           <div className="d-flex flex-wrap flex justify-content-center">
             {products?.map((p) => (
               <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
@@ -163,10 +168,21 @@ const HomePage = () => {
                   </p>
                   <p className="card-text">$ {p.price}</p>
                   <div className=" text-center">
-                    <button className="btn btn-outline-info me-2" onClick={() => navigate(`/product/${p.slug}`)}>
+                    <button
+                      className="btn btn-outline-info me-2"
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                    >
                       More Details
                     </button>
-                    <button className="btn btn-secondary me-2 mt-  mt-sm-0">Add to Cart</button>
+                    <button
+                      className="btn btn-secondary me-2 mt-sm-0"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        toast.success("Item Added to cart successfully");
+                      }}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </div>
@@ -174,10 +190,16 @@ const HomePage = () => {
           </div>
           <div className="p-2 my-3 d-flex flex-wrap flex justify-content-center">
             {products && products.length < total && (
-              <button className="btn btn-warning " onClick={(e) => {
-                e.preventDefault();
-                setPage(page + 1);
-              }}> {loading ? "loading..." : "Load more products"} </button>
+              <button
+                className="btn btn-warning "
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {" "}
+                {loading ? "loading..." : "Load more products"}{" "}
+              </button>
             )}
           </div>
         </div>
