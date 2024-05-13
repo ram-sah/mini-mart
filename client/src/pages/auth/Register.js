@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -38,83 +38,92 @@ const Register = () => {
         }
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top when component mounts
+    }, []);
+
     return (
         <Layout title={"Register your account "}>
-            <div className="register">
-                <h2 className="mb-5">Register Form</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="name"
-                            placeholder="Enter your name"
-                            required
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="email"
-                            className="form-control"
-                            id="email"
-                            placeholder="Enter your email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            placeholder="Enter password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
+            <div className="register bg-gradient-blue">
+                <div className='bg-light p-5 rounded-5'>
+                    <h3 className="text-center mb-4 ">
+                        Welcome to Ecommerce
+                    </h3>
+                    <h4 className="text-center mb-5">Register Form</h4>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                placeholder="Enter your name"
+                                required
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="email"
+                                className="form-control"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="password"
+                                placeholder="Enter password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
 
-                    <div className="mb-3">
-                        <input
-                            type="string"
-                            className="form-control"
-                            id="address"
-                            placeholder="Address"
-                            required
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="string"
-                            className="form-control"
-                            id="phone"
-                            placeholder="Phone"
-                            required
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="answer"
-                            placeholder="What is your favorite color? "
-                            required
-                            value={answer}
-                            onChange={(e) => setAnswer(e.target.value)}
-                        />
-                    </div>
+                        <div className="mb-3">
+                            <input
+                                type="string"
+                                className="form-control"
+                                id="address"
+                                placeholder="Address"
+                                required
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="string"
+                                className="form-control"
+                                id="phone"
+                                placeholder="Phone"
+                                required
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="answer"
+                                placeholder="What is your favorite color? "
+                                required
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                            />
+                        </div>
 
-                    <button type="submit" className="btn btn-primary w-100">
-                        Register
-                    </button>
-                </form>
+                        <button type="submit" className="btn btn-primary w-100">
+                            Register
+                        </button>
+                    </form>
+                </div>
             </div>
         </Layout>
     );

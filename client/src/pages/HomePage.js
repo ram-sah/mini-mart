@@ -5,7 +5,7 @@ import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
-import toast from "react-hot-toast";
+import AddToCartButton from "../components/AddToCartButton";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -17,6 +17,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
+  
   //get all category
   const getAllCategory = async () => {
     try {
@@ -28,11 +29,12 @@ const HomePage = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getAllCategory();
     getTotal();
+    window.scrollTo(0, 0); // Scroll to the top when component mounts
   }, []);
-
   //get products
   const getAllProducts = async () => {
     try {
@@ -53,7 +55,6 @@ const HomePage = () => {
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
-
   //get total count
   const getTotal = async () => {
     try {
@@ -83,7 +84,6 @@ const HomePage = () => {
       setLoading(false);
     }
   };
-
   //filter by category
   const handleFilter = (value, id) => {
     let all = [...checked];
@@ -94,7 +94,6 @@ const HomePage = () => {
     }
     setChecked(all);
   };
-
   //get filtered products
   const filterProduct = async () => {
     try {
@@ -108,8 +107,17 @@ const HomePage = () => {
     }
   };
 
+
   return (
     <Layout title={"All products | Best offers"}>
+      {/* banner image */}
+      <img
+        src="/images/banner.jpeg"
+        className="banner-img"
+        alt="bannerimage"
+        width={"100%"}
+        style={{ height: "250px" }}
+      />
       <div className="row bg-gradient-blue">
         <div className="col-lg-2 mt-4">
           <h4 className="text-start ms-4 "> Filter by category</h4>
@@ -124,7 +132,6 @@ const HomePage = () => {
               </Checkbox>
             ))}
           </div>
-
           {/* price filter */}
           <h4 className="text-start ms-4 "> Filter by Price</h4>
           <div className="d-flex flex-column ms-4">
@@ -149,9 +156,7 @@ const HomePage = () => {
         </div>
         <div className="col-md-10 mt-4">
           {/* {JSON.stringify(radio, null)} */}
-          <h2 className="text-center mb-5 mt-lg-0 mt-md-0">
-            Keep shopping for
-          </h2>
+          <h2 className="text-center mb-5 mt-lg-0 mt-md-0">Keep shopping for</h2>
           <div className="d-flex flex-wrap flex justify-content-center">
             {products?.map((p) => (
               <div className="card m-2" style={{ width: "18rem" }} key={p._id}>
@@ -162,27 +167,25 @@ const HomePage = () => {
                   height={"180px"}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{p.name}</h5>
+                  <div className="row">
+                    <div className="col-9">
+                      <h5 className="card-title" style={{ textTransform: "capitalize" }}>{p.name}</h5>
+                    </div>
+                    <div className="col-3">
+                      <p className="card-text">$ {p.price}</p>
+                    </div>
+                  </div>
                   <p className="card-text">
-                    {p.description.substring(0, 30)}...
+                    {p.description.substring(0, 25)}...
                   </p>
-                  <p className="card-text">$ {p.price}</p>
-                  <div className=" text-center">
+                  <div className=" text-center d-flex flex-row gap-2 justify-content-center">
                     <button
-                      className="btn btn-outline-info me-2"
+                      className="btn btn-outline-info me-"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
-                      More Details
+                      More Detail
                     </button>
-                    <button
-                      className="btn btn-secondary me-2 mt-sm-0"
-                      onClick={() => {
-                        setCart([...cart, p]);
-                        toast.success("Item Added to cart successfully");
-                      }}
-                    >
-                      Add to Cart
-                    </button>
+                    <AddToCartButton product={p} />
                   </div>
                 </div>
               </div>
@@ -197,7 +200,6 @@ const HomePage = () => {
                   setPage(page + 1);
                 }}
               >
-                {" "}
                 {loading ? "loading..." : "Load more products"}{" "}
               </button>
             )}
@@ -209,5 +211,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-// above title props destruct for SEO

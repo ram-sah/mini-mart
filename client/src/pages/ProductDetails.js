@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useCart } from '../context/cart';
+import AddToCartButton from '../components/AddToCartButton';
+
+
 
 const ProductDetails = () => {
     const params = useParams();
@@ -55,17 +58,12 @@ const ProductDetails = () => {
                     <h6>Description: {product.description} </h6>
                     <h6>Price: $ {product.price} </h6>
                     <h6>Category: {product.category?.name} </h6>
-                    <button className="btn btn-secondary "
-                        onClick={() => {
-                            setCart([...cart, product]);
-                            toast.success("Item Added to cart successfully");
-                        }}
-                    >Add to Cart</button>
+                    <AddToCartButton product={product} />
                 </div>
             </div>
             <hr />
-            <div className="row ms-md-4 mt-lg-0 ">
-                <h5 className='text-md-start text-center my-4'>Check Out Some Similar Products</h5>
+            <div className="row ms-md-4 mt-lg-0 gap-2">
+                <h5 className='text-md-start text-center my-4 '>Check Out Some Similar Products</h5>
                 {relatedProducts.length < 1 && <p className='text-center'>No Similar Products Found</p>}
                 {/* {JSON.stringify(relatedProducts, null,4)} */}
                 {relatedProducts?.map((p) => (
@@ -84,16 +82,11 @@ const ProductDetails = () => {
                                 {p.description.substring(0, 30)}...
                             </p>
                             <p className="card-text">$ {p.price}</p>
-                            <div className="mt-auto text-center">
-                                <button className="btn btn-primary me-1" onClick={() => navigate(`/product/${p.slug}`)}>
+                            <div className="mt-auto text-center d-flex flex-column gap-2">
+                                <button className="btn btn-primary " onClick={() => navigate(`/product/${p.slug}`)}>
                                     More Details
                                 </button>
-                                <button className="btn btn-secondary "
-                                    onClick={() => {
-                                        setCart([...cart, p]);
-                                        toast.success("Item Added to cart successfully");
-                                    }}
-                                >Add to Cart</button>
+                                <AddToCartButton product={p} />
                             </div>
                         </div>
                     </div>

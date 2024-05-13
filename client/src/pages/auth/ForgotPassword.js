@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Layout from "./../../components/Layout/Layout";
 import { useNavigate } from "react-router-dom";
@@ -33,49 +33,56 @@ const ForgotPassword = () => {
         };
 
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top when component mounts
+    }, []);
+
     return (
         <Layout title="Login your account ">
             <div className="register">
-                <h2 className="mb-5">Reset Password From</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <input
-                            type="email"
-                            className="form-control"
-                            id="email"
-                            placeholder="Enter your email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="test"
-                            className="form-control"
-                            id="answer"
-                            placeholder="Enter your favorite color"
-                            required
-                            value={answer}
-                            onChange={(e) => setAnswer(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="newPassword"
-                            placeholder="Enter New password"
-                            required
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                    </div>
+                <div className='bg-light p-5 rounded-5'>
+                    <h3 className="mb-5">Reset Password </h3>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <input
+                                type="email"
+                                className="form-control"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="test"
+                                className="form-control"
+                                id="answer"
+                                placeholder="Enter your favorite color"
+                                required
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="newPassword"
+                                placeholder="Enter New password"
+                                required
+                                value={newPassword}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                        </div>
 
-                    <button type="submit" className="btn btn-primary w-100 " onClick={() => { navigate('/forgot-password') }}>
-                        Update Password
-                    </button>
-                </form>
+                        <button type="submit" className="btn btn-primary w-100 " onClick={() => { navigate('/forgot-password') }}>
+                            Update Password
+                        </button>
+                    </form>
+                </div>
             </div>
         </Layout>
     );

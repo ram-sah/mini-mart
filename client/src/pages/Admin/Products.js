@@ -21,6 +21,7 @@ const Products = () => {
     //lifecycle method
     useEffect(() => {
         getAllProducts();
+        window.scrollTo(0, 0); // Scroll to the top when component mounts
     }, []);
     return (
         <Layout>
@@ -37,7 +38,7 @@ const Products = () => {
                                 to={`/dashboard/admin/product/${p.slug}`}
                                 className="product-link"
                             >
-                                <div className="card m-2" style={{ width: "18rem"}}>
+                                <div className="card m-2" style={{ width: "18rem" }}>
                                     <img
                                         src={`/api/v1/product/product-photo/${p._id}`}
                                         className="card-img-top"

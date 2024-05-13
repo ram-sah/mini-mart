@@ -2,8 +2,8 @@ import React from 'react';
 import Layout from '../components/Layout/Layout';
 import { useSearch } from "../context/search";
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { useCart } from '../context/cart';
+import AddToCartButton from '../components/AddToCartButton';
 
 const Search = () => {
   const [values, setValues] = useSearch()
@@ -35,12 +35,7 @@ const Search = () => {
                     <button className="btn btn-primary me-4 " onClick={() => navigate(`/product/${p.slug}`)}>
                       More Details
                     </button>
-                    <button className="btn btn-secondary "
-                       onClick={() => {
-                        setCart([...cart, p]);
-                        toast.success("Item Added to cart successfully");
-                      }}
-                    >Add to Cart</button>
+                   <AddToCartButton product={p} />
                   </div>
                 </div>
               </div>

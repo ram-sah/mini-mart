@@ -56,6 +56,7 @@ const UpdateProduct = () => {
 
     useEffect(() => {
         getAllCategory();
+        window.scrollTo(0, 0); // Scroll to the top when component mounts
     }, []);
 
     //create product function

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import Layout from "./../../components/Layout/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -42,14 +42,18 @@ const Login = () => {
     };
     // console.log(process.env.REACT_APP_API)
 
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top when component mounts
+    }, []);
+
     return (
         <Layout title="Login your account ">
-            <div className="register ">
-                <div className='bg-light min-h-screen bg-cover flex items-center justify-center p-5 rounded-5'>
-                    <h2 className="text-center text-zinc-800 font-bold text-2xl sm:text-3xl leading-none mb-4 tracking-tighter">
+            <div className="register bg-gradient-blue">
+                <div className='bg-light p-5 rounded-5'>
+                    <h3 className="text-center mb-4 ">
                         Welcome to Ecommerce
-                    </h2>
-                    <h3 className="mb-5 text-center">Login Form</h3>
+                    </h3>
+                    <h4 className="mb-5 text-center">Login Form</h4>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <input

@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from "react";
-import UserMenu from "../../components/Layout/UserMenu";
+import AdminMenu from "../../components/Layout/AdminMenu";
 import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { Select } from "antd";
 
-const Orders = () => {
+const { Option } = Select;
+
+const AdminOrders = () => {
+    const [status, setStatus] = useState([
+        "Not Process",
+        "Processing",
+        "Shipped",
+        "Delivered",
+        "Cancel",
+    ]);
+    const [changeStatus, setChangeStatus] = useState("");
     const [orders, setOrders] = useState([]);
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
 
     const getOrders = async () => {
         try {
-            const { data } = await axios.get("/api/v1/auth/order");
+            const { data } = await axios.get("/api/v1/auth/all-order");
             setOrders(data);
         } catch (error) {
             console.log(error);
@@ -24,24 +35,29 @@ const Orders = () => {
         window.scrollTo(0, 0); // Scroll to the top when component mounts
     }, [auth?.token]); // Dependency array containing auth?.token
 
-    return (
-        <Layout title={"Order Data"}>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-3 p-3 ">
-                        <UserMenu />
-                    </div>
+    //handleChange
+    const handleChange = async (orderId, value) => {
+        try {
+            const { data } = await axios.put(`/api/v1/auth/order-status/${orderId}`, { status: value, });
+            getOrders();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-                    {/* All orders */}
+    return (
+        <Layout title={"All Orders Data"}>
+            <div className="container-fluid">
+                <div className="row ">
+                    <div className="col-md-3 p-3">
+                        <AdminMenu />
+                    </div>
                     <div className="col-md-9 ">
                         <div className="row order bg-gradient-orange p-m-4 ">
                             <div className="col-lg-9 col-12">
                                 <h3 className="text-center my-5">
-                                    {orders.length ? "All Orders" : "You don't have any order yet"}
+                                    {orders.length ? "All Orders" : "Not any order yet"}
                                 </h3>
-                                {orders.length > 0 &&
-                                    (<h5 className="text-center"> Hi, {orders[0]?.buyer?.name}</h5>)}
-
                                 {/* <p>{JSON.stringify(orders, null, 4)}</p> */}
 
                                 <div className="border shadow">
@@ -51,20 +67,32 @@ const Orders = () => {
                                                 <th scope="col">SN.</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Payment</th>
-                                                <th scope="col">Quantity</th>
                                                 <th scope="col">Order Date </th>
-
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Buyer</th>
                                             </tr>
                                         </thead>
                                         {orders.map((o, i) => (
                                             <tbody key={i}>
                                                 <tr>
                                                     <th scope="row">{i + 1} </th>
-                                                    <td>{o?.status} </td>
+                                                    <td>
+                                                        <Select
+                                                            bordered={false}
+                                                            onChange={(value) => handleChange(o._id, value)}
+                                                            defaultValue={o?.status}
+                                                        >
+                                                            {status.map((s, i) => (
+                                                                <Option key={i} value={s} >
+                                                                    {s}
+                                                                </Option>
+                                                            ))}
+                                                        </Select>
+                                                    </td>
                                                     <td>{o?.payment?.success ? "Success" : "Failed"} </td>
-                                                    <td>{o?.products?.length} </td>
                                                     <td>{moment(o?.createdAt).fromNow()} </td>
-
+                                                    <td>{o?.products?.length} </td>
+                                                    <td>{o?.buyer?.name}</td>
                                                 </tr>
                                             </tbody>
                                         ))}
@@ -74,7 +102,10 @@ const Orders = () => {
                                     <div className="mt-5">
                                         {orders.map((o, i) =>
                                             o.products.map((p, j) => (
-                                                <div className="row card flex-row mb-2 mt-2 " key={p._id}>
+                                                <div
+                                                    className="row card flex-row mb-2 mt-2 "
+                                                    key={p._id}
+                                                >
                                                     <div className="col-lg-2 col-3 ">
                                                         <a
                                                             href={`/product/${p.slug}`}
@@ -106,7 +137,12 @@ const Orders = () => {
                                                                 <p className="mb-0">Price: $ {p.price} </p>
                                                             </div>
                                                             <div className="col-md-4">
-                                                                <span className="fw-semibold ">Purchased on: </span> {moment(o?.createdAt).format("MM/DD/YYYY-HH:mm")}
+                                                                <span className="fw-semibold ">
+                                                                    Purchased on:{" "}
+                                                                </span>{" "}
+                                                                {moment(o?.createdAt).format(
+                                                                    "MM/DD/YYYY-HH:mm"
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -124,4 +160,4 @@ const Orders = () => {
     );
 };
 
-export default Orders;
+export default AdminOrders;

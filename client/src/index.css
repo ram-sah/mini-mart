@@ -109,8 +109,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  height: 70vh;
+  height: 100vh;
+}
+/* User order page */
+.order {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: start;
+  min-height: 100vh;
 }
 
 /* product-link  */
@@ -127,36 +134,6 @@
   justify-content: center;
 }
 
-/* cart */
-
-.bag-item-count {
-  background-color: #f16565;
-  white-space: nowrap;
-  text-align: center;
-  /* line-height: 18px; */
-  padding: 0 6px;
-  /* height: 20px; */
-  position: relative;
-  border-radius: 100%;
-  font-size: 12px;
-  color: #fff;
-  left: 34px;
-  top: -8px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.action_container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -12px;
-}
-.action_name {
-  margin-top: -25px;
-  margin-left: 60px;
-}
-
 /* nav search button hover*/
 .btn:focus {
   background-color: black;
@@ -168,4 +145,16 @@
 }
 .bg-gradient-blue {
   background: linear-gradient(to top, #a3c6ec, #fff);
+}
+.bg-gradient-orange {
+  background: linear-gradient(to right, #f6ece2, #d8f8f9);
+}
+.bg-gradient-cart {
+  background: linear-gradient(to bottom, #d8f8f9, #fff);
+}
+/* user profile section  */
+@media (min-width: 576px) {
+  .bg-light.min-h-screen.p-5.rounded-5 {
+    width: 400px;
+  }
 }

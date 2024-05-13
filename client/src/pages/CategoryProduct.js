@@ -3,14 +3,12 @@ import Layout from '../components/Layout/Layout'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
-import { useCart } from '../context/cart'
+import AddToCartButton from '../components/AddToCartButton'
 const CategoryProduct = () => {
     const [products, setProducts] = useState([])
     const [category, setCategory] = useState([])
     const params = useParams();
     const navigate = useNavigate();
-    const [cart, setCart] = useCart()
 
     useEffect(() => {
         if (params?.slug) getProductByCategory()
@@ -52,12 +50,7 @@ const CategoryProduct = () => {
                                         <button className="btn btn-outline-info me-2" onClick={() => navigate(`/product/${p.slug}`)}>
                                             More Details
                                         </button>
-                                        <button className="btn btn-secondary me-2 mt-  mt-sm-0"
-                                            onClick={() => {
-                                                setCart([...cart, p]);
-                                                toast.success("Item Added to cart successfully");
-                                            }}
-                                        >Add to Cart</button>
+                                        <AddToCartButton product={p} />
                                     </div>
                                 </div>
                             </div>

@@ -31,7 +31,7 @@ const SearchInput = () => {
                 {/* dropdown All categories */}
                 <li className="nav-item dropdown bg-white border border-2 rounded-start-3">
                     <Link
-                        className="nav-link dropdown-toggle"
+                        className="nav-link dropdown-toggle px-2"
                         data-bs-toggle="dropdown"
                     >
                         All
@@ -43,8 +43,8 @@ const SearchInput = () => {
                                 All Categories
                             </Link>
                         </li>
-                        {categories?.map((c) => (
-                            <li key={c.id}>
+                        {categories?.map((c, index) => (
+                            <li key={index}>
                                 <Link className="dropdown-item" to={`/category/${c.slug}`}>
                                     {c.name}
                                 </Link>
@@ -54,14 +54,14 @@ const SearchInput = () => {
                 </li>
 
                 <input
-                    className="form-control bg-white border border-2 border-end-0 border-start-0 nav-link"
+                    className="form-control bg-white border border-2 border-end-0 border-start-0 nav-link px-3"
                     type="search"
                     placeholder="Search"
                     aria-label="Search"
                     value={values.keyword}
                     onChange={(e) => setValues({ ...values, keyword: e.target.value })}
                 />
-                <button className="btn rounded-end-3 rounded-start-0 nav-link" style={{ border: '2px solid lightgrey' }} type="submit">
+                <button className="btn rounded-end-3 rounded-start-0 nav-link px-2" style={{ border: '2px solid lightgrey' }} type="submit">
                     Search
                 </button>
             </form>
