@@ -8,7 +8,6 @@ import AddToCartButton from '../components/AddToCartButton';
 const Search = () => {
   const [values, setValues] = useSearch()
   const navigate = useNavigate();
-  const [cart, setCart] = useCart();
 
   return (
     <Layout title={'Search Results'}>
