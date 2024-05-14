@@ -42,9 +42,10 @@ app.use("/api/v1/product", productRoutes);
 
 // Rest API - Handle React routing, return all requests to React app
 //Render client for any path
-app.use("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+app.get('*', function (req, res) {
+    const index = path.join(__dirname, 'build', 'index.html');
+    res.sendFile(index);
+  });
 
 //port
 const PORT = process.env.PORT || 8080;
