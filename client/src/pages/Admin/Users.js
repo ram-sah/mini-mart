@@ -11,7 +11,8 @@ const Users = () => {
                         <AdminMenu />
                     </div>
                     <div className='col-md-9'>
-                        <h1> All users </h1>
+                        <h1> All Users List</h1>
+                        <p className='text-center text-bg-danger'> Coming soon... </p>
                     </div>
                 </div>
             </div>
