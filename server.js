@@ -43,7 +43,7 @@ app.use("/api/v1/product", productRoutes);
 // Rest API - Handle React routing, return all requests to React app
 //Render client for any path
 app.get('*', function (req, res) {
-    const index = path.join(__dirname, 'build', 'index.html');
+    const index = path.join(__dirname, './client/build', 'index.html');
     res.sendFile(index);
   });
 

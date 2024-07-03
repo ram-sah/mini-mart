@@ -41,7 +41,7 @@ const Users = () => {
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9 ">
+          <div className="col-md-5 text-center ">
             <h1>All Users List</h1>
             <table className="table">
               <thead>
@@ -52,7 +52,7 @@ const Users = () => {
               <tbody>
                 {uniqueBuyers.map((buyer, i) => (
                   <tr key={i}>
-                    <td> {i = i + 1} {buyer.name}</td>
+                    <td> {i = i + 1}. {buyer.name}</td>
                   </tr>
                 ))}
               </tbody>
