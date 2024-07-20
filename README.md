@@ -1,4 +1,4 @@
-# Project: Ram's Blog app
+# Project: Mini-Mart app
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![LanguageCount](https://img.shields.io/github/languages/count/ram-sah/mini-mart)](https://github.com/ram-sah/mini-mart)
