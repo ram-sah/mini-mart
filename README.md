@@ -32,7 +32,6 @@ E-Mart is a modern e-commerce web application built with the MERN stack, designe
 
 # Application link
 
-- 👉 Live: [Application Link](https://e-mart-f15d6a9693a5.herokuapp.com)
 - 👉 Demo: <a href="https://drive.google.com/file/d/1PWoHpOWqMjtAduiZSyXYIynQTU7nPgDV/view?usp=drive_link" target="_blank">Video Clip</a>
 
 ## Installation
